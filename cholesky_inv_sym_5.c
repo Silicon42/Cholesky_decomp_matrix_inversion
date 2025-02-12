@@ -60,6 +60,7 @@ void cholesky_inv_sym_5(generic_float A[15])
 {
 	int step = 0;
 	// for each row
+	#pragma GCC unroll 9	//GCC only unrolls deepest loops but for this unrolling is both faster and results in a shorter program
 	for(int i = 1; i < 5; ++i)
 	{
 		// calculate the D**-1 coeff, not stored as D coeff as a speed/accuracy 
@@ -94,6 +95,7 @@ void cholesky_inv_sym_5(generic_float A[15])
 	// augmented matrix
 
 	// for each row, bottom first
+	#pragma GCC unroll 9
 	for(int i = 3; i > 0; --i)
 		for(int j = i - 1; j >= 0; --j)	// for each element below the diagonal, right-most first
 			for(int k = i + 1; k < 5; ++k)	// for each element below [i][j]

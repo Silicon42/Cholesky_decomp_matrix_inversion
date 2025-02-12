@@ -1,6 +1,14 @@
-#include "manual_unroll.c"//"cholesky_inv_sym_5.c"//
+#include "cholesky_inv_sym_5.c"//"manual_unroll.c"//
 #include <stdio.h>
+/*
+Correct output should be approximately this
+[0.00007770612, ],
+[-0.54479757557, 0.00075790637, ],
+[0.59134647493, -1.81843357380, 0.00108826553, ],
+[-0.15633158700, 0.08094687885, -0.07096465742, 0.14228091784, ],
+[-0.02055195534, 0.06828680765, -0.17002660150, -0.21531729686, 0.18793051518, ],
 
+*/
 int main()
 {
 	float A[15] = {
@@ -22,4 +30,5 @@ int main()
 		}
 		puts("],");
 	}
+
 }
