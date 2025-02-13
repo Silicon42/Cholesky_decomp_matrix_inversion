@@ -72,7 +72,7 @@ void cholesky_inv_sym_5(generic_float A[15])
 		// toward applying the diagonal to a column vector
 		A[TRI_INDEX(i,-1)] = 1 / A[TRI_INDEX(i,-1)];
 		// for each element in the current row before the diagonal
-		for(int j = i - 1; j >= 0; --j)
+		for(int j = 0; j < i; +j)
 		{	// calculate the -L coefficient, negated b/c it's only ever needed as a negative
 			// stored in temp variable so as to not overwrite the cell before using its S element
 			generic_float L_temp = -A[TRI_INDEX(i,j)] * A[TRI_INDEX(j,j)];
