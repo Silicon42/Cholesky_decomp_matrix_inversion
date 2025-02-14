@@ -55,10 +55,8 @@ matrix and L is a lower unit triangular matrix.
 Returns the coefficients of L**-1 in the lower triangle and the coefficiensts of
 D**-1 on the diagonal
 */
-#include <stdio.h>
 void cholesky_inv_sym_5(generic_float A[15])
 {
-	int step = 0;
 	// for each row
 	#pragma GCC unroll 9	//GCC only unrolls deepest loops but for this unrolling is both faster and results in a shorter program
 	for(int i = 1; i < 5; ++i)
@@ -72,7 +70,7 @@ void cholesky_inv_sym_5(generic_float A[15])
 		// toward applying the diagonal to a column vector
 		A[TRI_INDEX(i,-1)] = 1 / A[TRI_INDEX(i,-1)];
 		// for each element in the current row before the diagonal
-		for(int j = 0; j < i; +j)
+		for(int j = 0; j < i; ++j)
 		{	// calculate the -L coefficient, negated b/c it's only ever needed as a negative
 			// stored in temp variable so as to not overwrite the cell before using its S element
 			generic_float L_temp = -A[TRI_INDEX(i,j)] * A[TRI_INDEX(j,j)];
