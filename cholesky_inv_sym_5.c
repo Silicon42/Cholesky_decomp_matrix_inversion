@@ -57,11 +57,12 @@ D**-1 on the diagonal
 */
 void cholesky_inv_sym_5(generic_float A[15])
 {
+	// GCC only unrolls deepest loops but for this unrolling is both faster
+	// and results in a shorter program
+	#pragma GCC unroll 9
 	// for each row
-	#pragma GCC unroll 9	//GCC only unrolls deepest loops but for this unrolling is both faster and results in a shorter program
 	for(int i = 1; i < 5; ++i)
-	{
-		// calculate the D**-1 coeff, not stored as D coeff as a speed/accuracy 
+	{	// calculate the D**-1 coeff, not stored as D coeff as a speed/accuracy 
 		// tradeoff, doing this only uses 5 reciprocals + 15 multiplies and doing
 		// the division normally uses 15 divides, if we assume a divide is 2x the
 		// cycle cost of a multiply (or worse), the total cost is 5*2 + 15 = 25 
@@ -86,14 +87,14 @@ void cholesky_inv_sym_5(generic_float A[15])
 	// to handle that
 	A[TRI_INDEX(4,4)] = 1 / A[TRI_INDEX(4,4)];
 
-	// now that the S coefficients are fully calculated, they can be inverted by
+	// now that the L coefficients are fully calculated, they can be inverted by
 	// row operations of subtracting multiples of lower rows. Since this would
 	// zero out the element at that position, we can use the same element to 
 	// store the resulting value that corresponds to the right side of the
 	// augmented matrix
 
-	// for each row, bottom first
 	#pragma GCC unroll 9
+	// for each row, bottom first
 	for(int i = 3; i > 0; --i)
 		for(int j = i - 1; j >= 0; --j)	// for each element below the diagonal, right-most first
 			for(int k = i + 1; k < 5; ++k)	// for each element below [i][j]
